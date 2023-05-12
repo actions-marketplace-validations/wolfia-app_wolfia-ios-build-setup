@@ -31,7 +31,8 @@ jobs:
       #     echo -n "${{ steps.ios-build-setup.outputs.provisioning-profile }}" | base64 --decode
       - name: Validate distribution
         run: npm run validate-distribution
-      - name: Validate version
-        run: npm run validate-version
+      # TODO: enable once one version has been released.
+      # - name: Validate version
+      #   run: npm run validate-version
       - name: Validate formatting
         run: npm run validate-formatting
