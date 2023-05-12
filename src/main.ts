@@ -2,23 +2,45 @@ import * as core from '@actions/core'
 import {getInputs} from './inputs'
 import {getToken} from './jwt'
 
-async function run(): Promise<void> {
-  core.info(`Completed.`)
+import {API, ProfileState} from './api'
 
+async function run(): Promise<void> {
   const {
     appStoreConnectApiKey,
     appStoreConnectApiIssuer,
-    appStoreConnectSecret
+    appStoreConnectSecret,
+    profileName
   } = getInputs()
 
+  core.info(`Generating JWT...`)
   const token = getToken({
     appStoreConnectApiKey,
     appStoreConnectApiIssuer,
     appStoreConnectSecret
   })
+  const api = new API(token)
 
-  // eslint-disable-next-line no-console
-  console.log(`Token: ${token}`)
+  core.info(`Fetching profiles...`)
+  const profiles = await api.getProfiles()
+  const profile = profiles.data.find(
+    prof => prof.attributes.name === profileName
+  )
+
+  if (!profile) {
+    core.setFailed(
+      `Profile "${profileName}" not found. Please confirm the profile name is correct and exists.`
+    )
+    return
+  }
+
+  if (profile.attributes.profileState !== ProfileState.ACTIVE) {
+    core.setFailed(
+      `Profile "${profileName}" is ${profile.attributes.profileState}. Please confirm the profile is active and valid.`
+    )
+    return
+  }
+
+  core.info(`Profile "${profileName}" found.`)
 }
 
 run()
