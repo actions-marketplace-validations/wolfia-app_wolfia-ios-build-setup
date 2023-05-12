@@ -29,8 +29,6 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.10.0",
-    "@actions/exec": "^1.1.1",
-    "@actions/github": "^5.1.1",
     "axios": "^1.4.0",
     "jsonwebtoken": "^9.0.0"
   },
