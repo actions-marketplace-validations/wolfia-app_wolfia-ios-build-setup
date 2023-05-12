@@ -21,7 +21,7 @@ interface Profile {
   }
 }
 
-export class API {
+export class AppStoreConnectAPI {
   token: string
 
   constructor(token: string) {

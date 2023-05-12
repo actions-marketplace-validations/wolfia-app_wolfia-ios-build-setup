@@ -19,7 +19,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.API = exports.ProfileState = void 0;
+exports.AppStoreConnectAPI = exports.ProfileState = void 0;
 const axios_1 = __importDefault(__nccwpck_require__(8757));
 const APP_STORE_CONNECT_API_BASE = 'https://api.appstoreconnect.apple.com';
 // eslint-disable-next-line no-shadow
@@ -28,7 +28,7 @@ var ProfileState;
     ProfileState["ACTIVE"] = "ACTIVE";
     ProfileState["INVALID"] = "INVALID";
 })(ProfileState = exports.ProfileState || (exports.ProfileState = {}));
-class API {
+class AppStoreConnectAPI {
     constructor(token) {
         this.token = token;
     }
@@ -48,7 +48,7 @@ class API {
         });
     }
 }
-exports.API = API;
+exports.AppStoreConnectAPI = AppStoreConnectAPI;
 
 
 /***/ }),
@@ -189,7 +189,7 @@ function run() {
             appStoreConnectApiIssuer,
             appStoreConnectSecret
         });
-        const api = new api_1.API(token);
+        const api = new api_1.AppStoreConnectAPI(token);
         core.info(`Fetching profiles...`);
         const profiles = yield api.getProfiles();
         const profile = profiles.data.find(prof => prof.attributes.name === profileName);

@@ -2,7 +2,7 @@ import * as core from '@actions/core'
 import {getInputs} from './inputs'
 import {getToken} from './jwt'
 
-import {API, ProfileState} from './api'
+import {AppStoreConnectAPI, ProfileState} from './api'
 
 async function run(): Promise<void> {
   const {
@@ -18,7 +18,7 @@ async function run(): Promise<void> {
     appStoreConnectApiIssuer,
     appStoreConnectSecret
   })
-  const api = new API(token)
+  const api = new AppStoreConnectAPI(token)
 
   core.info(`Fetching profiles...`)
   const profiles = await api.getProfiles()
