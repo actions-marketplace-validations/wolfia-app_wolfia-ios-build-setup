@@ -1,0 +1,19 @@
+name: 'Wolfia iOS Build Setup'
+description: 'An action to setup the environment for building iOS apps'
+author: 'Wolfia'
+branding:
+  icon: 'smartphone'
+  color: 'gray-dark'
+inputs:
+  app-store-connect-api-key-id:
+    description: 'App Store Connect API Key ID'
+    required: true
+  app-store-connect-api-issuer:
+    description: 'App Store Connect API Issuer'
+    required: true
+  app-store-connect-secret-base64:
+    description: 'App Store Connect API private key file contents (base64 encoded)'
+    required: true
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

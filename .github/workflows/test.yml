@@ -1,0 +1,26 @@
+name: 'Test'
+on:
+  push:
+    branches:
+      - '**'
+
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    environment: nightly
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Compile and build github action
+        run: |
+          npm ci
+          npm run all
+      - name: Validate distribution
+        run: npm run validate-distribution
+      - name: Validate version
+        run: npm run validate-version
+      - name: Validate formatting
+        run: npm run validate-formatting
