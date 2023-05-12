@@ -41,6 +41,10 @@ async function run(): Promise<void> {
   }
 
   core.info(`Profile "${profileName}" found.`)
+  // Hide the value from being output in logs.
+  core.setSecret(profile.attributes.profileContent)
+  // Output the value so subsequent steps can use it.
+  core.setOutput('provisioning-profile', profile.attributes.profileContent)
 }
 
 run()
